@@ -60,7 +60,7 @@ public class enemy_fsm : MonoBehaviour
     {
         GameObject[] destinations = GameObject.FindGameObjectsWithTag("Dest");
         patrolDestination = destinations[Random.Range(0, destinations.Length)].GetComponent<Transform>();
-        CurrentState = ENEMY_STATE.PATROL;
+        CurrentState = ENEMY_STATE.WANDER;
     }
 
     public IEnumerator EnemyWADER()
@@ -104,7 +104,7 @@ public class enemy_fsm : MonoBehaviour
                 agent.isStopped = true;
                 if (!checkMyVision.targetInSight)
                 {
-                    CurrentState = ENEMY_STATE.PATROL;
+                    CurrentState = ENEMY_STATE.WANDER;
                 }
                 else
                 {
