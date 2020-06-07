@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class enemy_fsm : MonoBehaviour
 {
-    public enum ENEMY_STATE { PATROL, CHASE, ATTACK };
+    public enum ENEMY_STATE { WANDER, CHASE, ATTACK, DEAD };
     [SerializeField]
     private ENEMY_STATE currentState;
     public ENEMY_STATE CurrentState
@@ -24,13 +24,16 @@ public class enemy_fsm : MonoBehaviour
             StopAllCoroutines();
             switch (currentState)
             {
-                case ENEMY_STATE.PATROL:
-                    StartCoroutine(EnemyPatrol());
+                case ENEMY_STATE.WANDER:
+                    StartCoroutine(EnemyWANDER());
                     break;
                 case ENEMY_STATE.CHASE:
                     StartCoroutine(EnemyChase());
                     break;
                 case ENEMY_STATE.ATTACK:
+                    StartCoroutine(EnemyAttack());
+                    break;
+                case ENEMY_STATE.DEAD:
                     StartCoroutine(EnemyAttack());
                     break;
             }
@@ -60,9 +63,9 @@ public class enemy_fsm : MonoBehaviour
         CurrentState = ENEMY_STATE.PATROL;
     }
 
-    public IEnumerator EnemyPatrol()
+    public IEnumerator EnemyWADER()
     {
-        while (currentState == ENEMY_STATE.PATROL)
+        while (currentState == ENEMY_STATE.WANDER)
         {
             checkMyVision.sensitivity = CheckMyVision.enmSensitivity.HIGH;
             agent.isStopped = false;
@@ -135,6 +138,14 @@ public class enemy_fsm : MonoBehaviour
         yield break;
     }
 
+    public IEnumerator EnemyDEAD()
+    {
+        while (currentState == ENEMY_STATE.DEAD)
+        {
+            
+        }
+        yield break;
+    }
     // Update is called once per frame
     void Update()
     {
