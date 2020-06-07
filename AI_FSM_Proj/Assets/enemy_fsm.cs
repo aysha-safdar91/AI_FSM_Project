@@ -34,7 +34,7 @@ public class enemy_fsm : MonoBehaviour
                     StartCoroutine(EnemyAttack());
                     break;
                 case ENEMY_STATE.DEAD:
-                    StartCoroutine(EnemyAttack());
+                    StartCoroutine(EnemyDEAD());
                     break;
             }
 
